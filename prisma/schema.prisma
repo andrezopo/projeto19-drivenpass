@@ -22,6 +22,14 @@ model Users {
   @@map("users")
 }
 
+model Sessions {
+  id    Int    @id @default(autoincrement())
+  email String
+  token String
+
+  @@map("sessions")
+}
+
 model Cards {
   id             Int       @id @default(autoincrement())
   title          String
