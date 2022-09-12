@@ -14,9 +14,9 @@ credentialsRouter.post(
   credentialsController.register
 );
 credentialsRouter.get("/", validateToken, credentialsController.getAll);
-credentialsRouter.get("/:cardId", validateToken, credentialsController.getById);
+credentialsRouter.get("/:id", validateToken, credentialsController.getById);
 credentialsRouter.delete(
-  "/:cardId",
+  "/:id",
   validateToken,
   credentialsController.deleteById
 );

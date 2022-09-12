@@ -22,6 +22,9 @@ export default async function errorHandler(
   if (error.type === "notAcceptable") {
     return res.status(406).send(`${error.message}`);
   }
+  if (error.type === "forbidden") {
+    return res.status(403).send(`${error.message}`);
+  }
 
   return res.status(500).send("Internal Error!");
 }

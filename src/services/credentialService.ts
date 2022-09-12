@@ -1,4 +1,9 @@
-import { getAll, insert } from "../repositories/credentialsRepository";
+import {
+  deleteById,
+  getAll,
+  getById,
+  insert,
+} from "../repositories/credentialsRepository";
 import { credential } from "../types/credentialTypes";
 import Cryptr from "cryptr";
 import dotenv from "dotenv";
@@ -29,4 +34,28 @@ export async function getAllCredentials(userId: number) {
     return decriptedCredentials;
   }
   return credentials;
+}
+
+export async function getCredentialById(id: number, userId: number) {
+  const credential = await getById(id);
+  if (!credential) {
+    throw { type: "notFound", message: "Credential not found" };
+  }
+  if (credential.userId !== userId) {
+    throw { type: "forbidden", message: "This credential is not yours" };
+  }
+  credential.password = cryptr.decrypt(credential.password);
+  return credential;
+}
+
+export async function deleteCredentialById(id: number, userId: number) {
+  const credential = await getById(id);
+  if (!credential) {
+    throw { type: "notFound", message: "Credential not found" };
+  }
+  if (credential.userId !== userId) {
+    throw { type: "forbidden", message: "This credential is not yours" };
+  }
+
+  await deleteById(id);
 }

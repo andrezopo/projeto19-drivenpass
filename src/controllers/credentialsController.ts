@@ -16,9 +16,17 @@ export async function getAll(req: Request, res: Response) {
 }
 
 export async function getById(req: Request, res: Response) {
-  res.status(200).send("Sou a rota que pega um registro por seu Id");
+  const userId: number = Number(res.locals.userId);
+  const id: number = Number(req.params.id);
+  const credential = await credentialService.getCredentialById(id, userId);
+  delete credential.userId;
+  res.status(200).send(credential);
 }
 
 export async function deleteById(req: Request, res: Response) {
-  res.status(200).send("Sou a rota que deleta um registro por seu Id");
+  const userId: number = Number(res.locals.userId);
+  const id: number = Number(req.params.id);
+
+  await credentialService.deleteCredentialById(id, userId);
+  res.status(200).send("Credential removed successfully");
 }

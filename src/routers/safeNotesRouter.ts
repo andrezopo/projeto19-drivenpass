@@ -14,11 +14,7 @@ safeNotesRouter.post(
   safeNotesController.register
 );
 safeNotesRouter.get("/", validateToken, safeNotesController.getAll);
-safeNotesRouter.get("/:cardId", validateToken, safeNotesController.getById);
-safeNotesRouter.delete(
-  "/:cardId",
-  validateToken,
-  safeNotesController.deleteById
-);
+safeNotesRouter.get("/:id", validateToken, safeNotesController.getById);
+safeNotesRouter.delete("/:id", validateToken, safeNotesController.deleteById);
 
 export default safeNotesRouter;

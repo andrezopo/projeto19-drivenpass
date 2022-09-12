@@ -14,7 +14,7 @@ wifisRouter.post(
   wifiController.register
 );
 wifisRouter.get("/", validateToken, wifiController.getAll);
-wifisRouter.get("/:cardId", validateToken, wifiController.getById);
-wifisRouter.delete("/:cardId", validateToken, wifiController.deleteById);
+wifisRouter.get("/:id", validateToken, wifiController.getById);
+wifisRouter.delete("/:id", validateToken, wifiController.deleteById);
 
 export default wifisRouter;

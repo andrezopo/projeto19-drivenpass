@@ -36,7 +36,6 @@ export default async function validateToken(
 
     next();
   } catch (err) {
-    res.status(500).send("Erro interno!");
-    return;
+    throw { type: "unauthorized", message: "Invalid or expired token" };
   }
 }
