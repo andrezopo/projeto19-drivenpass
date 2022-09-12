@@ -26,7 +26,7 @@ model Users {
 model Cards {
   id             Int       @id @default(autoincrement())
   title          String
-  number         String    @unique
+  number         String
   cardholderName String
   securityCode   String
   expirationDate String
