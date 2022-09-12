@@ -19,6 +19,13 @@ export async function register(safeNote: safeNote, userId: number) {
 
 export async function getAllSafeNotes(userId: number) {
   const safeNotes = await getAll(userId);
+  if (safeNotes.length > 0) {
+    const newSafeNotes = safeNotes.map((safeNote) => {
+      delete safeNote.userId;
+      return safeNote;
+    });
+    return newSafeNotes;
+  }
   return safeNotes;
 }
 
