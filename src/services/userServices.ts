@@ -1,8 +1,4 @@
-import {
-  getUserByEmail,
-  insertSession,
-  insertUser,
-} from "../repositories/usersRepository";
+import { getUserByEmail, insertUser } from "../repositories/usersRepository";
 import { userType } from "../types/userTypes";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -16,7 +12,8 @@ export async function signUp(user: userType) {
     throw { type: "conflict", message: "Could not create account!" };
   }
   const saltRounds = process.env.SALT_ROUNDS;
-  const encodedPassword = bcrypt.hashSync(user.password, saltRounds);
+  const salt = bcrypt.genSaltSync(parseInt(saltRounds));
+  const encodedPassword = bcrypt.hashSync(user.password, salt);
   await insertUser({ email: user.email, password: encodedPassword });
 }
 

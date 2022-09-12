@@ -31,7 +31,7 @@ export default async function validateToken(
       return res.status(401).send("Unauthorized");
     }
 
-    res.locals.user = user;
+    res.locals.userId = user.id;
     res.locals.token = token;
 
     next();

@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import * as credentialsController from "../controllers/credentialsController";
 import validateSchema from "../middlewares/validateSchema";
+import validateToken from "../middlewares/validateToken";
 import credentialSchema from "../schemas/credentialSchema";
 
 const credentialsRouter = Router();
@@ -9,10 +10,15 @@ const credentialsRouter = Router();
 credentialsRouter.post(
   "/register",
   validateSchema(credentialSchema),
+  validateToken,
   credentialsController.register
 );
-credentialsRouter.get("/", credentialsController.getAll);
-credentialsRouter.get("/:cardId", credentialsController.getById);
-credentialsRouter.delete("/:cardId", credentialsController.deleteById);
+credentialsRouter.get("/", validateToken, credentialsController.getAll);
+credentialsRouter.get("/:cardId", validateToken, credentialsController.getById);
+credentialsRouter.delete(
+  "/:cardId",
+  validateToken,
+  credentialsController.deleteById
+);
 
 export default credentialsRouter;
