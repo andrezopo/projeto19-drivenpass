@@ -18,6 +18,7 @@ model Users {
   credentials Credentials[]
   safeNotes   SafeNotes[]
   wifis       Wifis[]
+  documents   Documents[]
 
   @@map("users")
 }
@@ -78,4 +79,23 @@ model Wifis {
   userId   Int
 
   @@map("wifis")
+}
+
+model Documents {
+  id                 Int           @id @default(autoincrement())
+  completeName       String
+  issueDate          String
+  expireDate         String
+  registrationNumber String
+  issuingBody        String
+  type               documentTypes
+  user               Users         @relation(fields: [userId], references: [id])
+  userId             Int
+
+  @@map("documents")
+}
+
+enum documentTypes {
+  rg
+  cnh
 }
